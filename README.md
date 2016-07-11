@@ -1,3 +1,3 @@
 ### Oyster card ###
 
-This is a London Oyster card simulator.
+This is a London Oystercard simulator.
