@@ -34,10 +34,17 @@ end
 ```
 
 ```Primary Object → Reference Object → Message```
-
+**Q.1**
 |Objects|Messages|
 |-:|:-:|
 |Customer||
 |Card|balance|
+**Q.2**
+|Objects|Messages|
+|-:|:-:|
+|Customer||
+|Card|top_up|
+
+
 
 
