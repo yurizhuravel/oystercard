@@ -27,6 +27,10 @@ describe Oystercard do
     expect{card.touch_in(station)}.to raise_error 'Insufficient balance'
   end
 
+  it 'initially has an empty journey history' do
+    expect(card.journey_history).to eq []
+  end
+
   describe '#in_journey?' do
     it 'initialy is not in journey' do
       expect(card).not_to be_in_journey
@@ -45,12 +49,12 @@ describe Oystercard do
     end
 
     it 'touches card out' do
-      card.touch_out
+      card.touch_out(station)
       expect(card).not_to be_in_journey
     end
 
     it 'deducts fare on touch_out' do
-      expect{card.touch_out}.to change{card.balance}.by(-Oystercard::MIN_FARE)
+      expect{card.touch_out(station)}.to change{card.balance}.by(-Oystercard::MIN_FARE)
     end
 
     it 'stores the entry station' do
@@ -58,8 +62,14 @@ describe Oystercard do
     end
 
     it 'erases entry station on touch out' do
-      card.touch_out
+      card.touch_out(station)
       expect(card.entry_station).to eq nil
     end
+
+    it 'stores journey history' do
+      card.touch_out(station)
+      expect(card.journey_history).to eq [{:entry => station, :exit => station}]
+    end
+
   end
 end
