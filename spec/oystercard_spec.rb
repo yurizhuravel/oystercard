@@ -22,13 +22,6 @@ describe Oystercard do
     end
   end
 
-  describe '#deduct' do
-    it 'deducts fare from card' do
-      card.top_up 10
-      expect{card.deduct 5}.to change{card.balance}.by -5
-    end
-  end
-
   it 'raises an error when balance under 1' do
     expect{card.touch_in}.to raise_error 'Insufficient balance'
   end
@@ -54,5 +47,10 @@ describe Oystercard do
       card.touch_out
       expect(card).not_to be_in_journey
     end
+
+    it 'deducts fare on touch_out' do
+      expect{card.touch_out}.to change{card.balance}.by -1
+    end
+
   end
 end
