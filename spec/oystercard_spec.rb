@@ -29,24 +29,30 @@ describe Oystercard do
     end
   end
 
-  describe '#touch_in' do
-    it 'touches card in' do
-      expect{card.touch_in}.to change{card.in_journey}.to true
-    end
+  it 'raises an error when balance under 1' do
+    expect{card.touch_in}.to raise_error 'Insufficient balance'
   end
 
   describe '#in_journey?' do
-    it 'returns true if in journey' do
+    it 'initialy is not in journey' do
+      expect(card).not_to be_in_journey
+    end
+  end
+
+  describe '#touch_in/touch_out' do
+
+    before :each do
+      card.top_up 10
       card.touch_in
+    end
+
+    it 'touches card in' do
       expect(card).to be_in_journey
     end
-  end
 
-  describe '#touch_out' do
     it 'touches card out' do
-      card.touch_in
-      expect{card.touch_out}.to change{card.in_journey}.to false
+      card.touch_out
+      expect(card).not_to be_in_journey
     end
   end
-
 end
