@@ -30,24 +30,29 @@ subject(:card) {Oystercard.new }
       end
    end
 
-  describe '#touch_in and #touch_out' do
-
-    before(:each)do
-      card.touch_in
-    end
-
      describe '#touch_in' do
-       it 'touches the card in' do
-         expect(card).to be_in_journey
-       end
+         it 'Requires minimum balance to touch in' do
+         expect{card.touch_in}.to raise_error'Not enough money on card'
+         end
      end
 
      describe '#touch_out' do
+     end
+
+  describe '#touch_in and #touch_out' do
+    before(:each)do
+        card.top_up(5)
+      card.touch_in
+    end
+
+       it 'touches the card in' do
+         expect(card).to be_in_journey
+       end
+
        it 'touches the card out' do
          card.touch_out
          expect(card).not_to be_in_journey
        end
-     end
- end
+    end
 
 end
