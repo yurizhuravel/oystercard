@@ -1,4 +1,4 @@
-require 'station'
+require_relative'station.rb'
 
 class Oystercard
   MAXIMUM_BALANCE = 90
