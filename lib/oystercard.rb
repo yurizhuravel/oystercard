@@ -11,7 +11,9 @@ class Oystercard
     def top_up(amount)
         fail "card limitted to £90" if (@balance+amount)>MAXIMUM_BALANCE
         @balance += amount
-        @balance
     end
-        
+    
+    def deduct(amount)
+        @balance -= amount
+    end    
 end
