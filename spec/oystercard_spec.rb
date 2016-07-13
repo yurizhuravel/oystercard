@@ -3,7 +3,7 @@ require 'oystercard'
 describe Oystercard do
 
 subject(:card) {Oystercard.new }
-let (:station) {double :station}
+let (:station) {double :station, zone: 1}
 
     it 'tells your balance is 0' do
       expect(card.balance).to eq 0
