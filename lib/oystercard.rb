@@ -1,4 +1,4 @@
-
+require 'station'
 
 class Oystercard
   MAXIMUM_BALANCE = 90
@@ -19,13 +19,17 @@ class Oystercard
   def limit_reached(amount)
     @balance + amount > MAXIMUM_BALANCE
   end
+  
+  def no_money?
+      balance < MINIMUM_FARE
+  end
 
   def in_journey?
     !!@entry_station
   end
 
   def touch_in(station)
-      fail 'Not enough money on card' if balance < MINIMUM_FARE
+      fail 'Not enough money on card' if no_money?
     @entry_station = station
   end
 
