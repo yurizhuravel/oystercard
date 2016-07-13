@@ -15,20 +15,13 @@ subject(:card) {Oystercard.new }
    end
 
    it 'there is a £90 limit' do
-      maximum_balance = Oystercard::MAXIMUM_BALANCE
-      card = Oystercard.new(maximum_balance)
-      expect{card.top_up(maximum_balance)}.to raise_error "card limitted to £#{maximum_balance}"
+     card.top_up((Oystercard::MAXIMUM_BALANCE))
+      expect{card.top_up(1)}.to raise_error "card limitted to £#{Oystercard::MAXIMUM_BALANCE}"
    end
 
    it 'initially is not in journey' do
      expect(card).not_to be_in_journey
   end
-
-   describe '#deduct' do
-      it 'deducts the fee' do
-        expect{card.deduct(1)}.to change{card.balance}.by(-1)
-      end
-   end
 
      describe '#touch_in' do
          it 'Requires minimum balance to touch in' do
@@ -41,7 +34,7 @@ subject(:card) {Oystercard.new }
 
   describe '#touch_in and #touch_out' do
     before(:each)do
-        card.top_up(5)
+      card.top_up(5)
       card.touch_in
     end
 
@@ -53,6 +46,11 @@ subject(:card) {Oystercard.new }
          card.touch_out
          expect(card).not_to be_in_journey
        end
+
+       it 'deducts the minimum fare on touch out' do
+         expect{card.touch_out}.to change{card.balance}.by(-Oystercard::MINIMUM_FARE)
+       end
+
     end
 
 end
