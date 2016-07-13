@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
 
 subject(:card) {Oystercard.new }
+let (:station) {double :station}
 
     it 'tells your balance is 0' do
       expect(card.balance).to eq 0
@@ -25,7 +26,7 @@ subject(:card) {Oystercard.new }
 
      describe '#touch_in' do
          it 'Requires minimum balance to touch in' do
-         expect{card.touch_in}.to raise_error'Not enough money on card'
+         expect{card.touch_in(station)}.to raise_error'Not enough money on card'
          end
      end
 
@@ -35,8 +36,13 @@ subject(:card) {Oystercard.new }
   describe '#touch_in and #touch_out' do
     before(:each)do
       card.top_up(5)
-      card.touch_in
+      card.touch_in(station)
     end
+
+       it 'stores the entry station' do
+       expect(card.entry_station).to eq station    
+       end   
+
 
        it 'touches the card in' do
          expect(card).to be_in_journey
