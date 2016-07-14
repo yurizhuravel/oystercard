@@ -25,7 +25,7 @@ let (:station) {double :station, zone: 1}
   end
 
     it 'initially has no journey history' do
-      expect(card.journey_history).to eq []
+      expect(card.journey_history).to
     end
 
      describe '#touch_in' do

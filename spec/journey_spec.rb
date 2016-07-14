@@ -2,7 +2,7 @@ require 'journey'
 
 describe Journey do
 
-  subject(:journey) { Journey.new }
+  let(:journey) { Journey.new }
   let(:station) { double :station, zone: 1 }
 
   it 'knows when a journey is not complete' do

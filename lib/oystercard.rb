@@ -32,14 +32,14 @@ class Oystercard
 
   def touch_in(station)
       fail 'Not enough money on card' if no_money?
+      @journey.finish(station) if in_journey?
       @journey = Journey.new(station)
     #@journey.store(:entry, station)
   end
 
   def touch_out(station)
-    @journey = Journey.new(station) if @journey.nil?
-    deduct(@journey.fare)
     @journey.finish(station)
+    deduct(@journey.fare)
     @journey = nil
   #  @journey.store(:exit, station)
   #  @journey_history << @journey
