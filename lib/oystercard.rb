@@ -1,4 +1,6 @@
 require_relative'station.rb'
+require_relative 'journey_history.rb'
+require_relative 'journey.rb'
 
 class Oystercard
   MAXIMUM_BALANCE = 90
@@ -8,8 +10,7 @@ class Oystercard
 
   def initialize
       @balance = 0
-      @journey_history = []
-      @journey = {}
+      @journey_history = JourneyHistory.new
   end
 
   def top_up(amount)
@@ -26,19 +27,23 @@ class Oystercard
   end
 
   def in_journey?
-    !@journey.empty?
+    !@journey.nil?
   end
 
   def touch_in(station)
       fail 'Not enough money on card' if no_money?
-    @journey.store(:entry, station)
+      @journey = Journey.new(station)
+    #@journey.store(:entry, station)
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
-    @journey.store(:exit, station)
-    @journey_history << @journey
-    @journey = {}
+    @journey = Journey.new(station) if @journey.nil?
+    deduct(@journey.fare)
+    @journey.finish(station)
+    @journey = nil
+  #  @journey.store(:exit, station)
+  #  @journey_history << @journey
+  #  @journey = {}
   end
 
 private

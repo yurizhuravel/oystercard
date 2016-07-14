@@ -9,14 +9,15 @@ class Journey
   end
 
   def complete?
-    false
+    @entry_station && @exit_station
   end
 
   def fare
-    PENALTY_FARE
+    @exit_station == nil ? PENALTY_FARE : Oystercard::MINIMUM_FARE
   end
 
   def finish(station)
+    @exit_station = station
     self
   end
 end
