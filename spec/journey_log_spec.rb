@@ -20,10 +20,14 @@ describe JourneyLog do
     end
   end
 
-#  describe '#finish' do
-#    it 'should finish a journey with an exit station' do
-#      subject.start(
+ describe '#finish' do
+   it 'should finish a journey with an exit station' do
+     allow(journey_class).to receive(:new).and_return journey
+     allow(journey).to receive(:finish).and_return journey
+     subject.start(station)
+     subject.finish(station)
+     expect(subject.current_journey.exit_station).to eq station
 
-#    end
-#  end
+   end
+ end
 end

@@ -2,7 +2,7 @@ class Journey
   DEFAULT_ENTRY = nil
   PENALTY_FARE = 6
   attr_reader :entry_station
-  attr_accessor :journey_history
+  attr_accessor :journey_history, :exit_station
 
   def initialize(station = DEFAULT_ENTRY)
     @entry_station = station

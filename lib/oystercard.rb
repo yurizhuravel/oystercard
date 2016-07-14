@@ -1,5 +1,5 @@
 require_relative'station.rb'
-require_relative 'journey_history.rb'
+require_relative 'journey_log.rb'
 require_relative 'journey.rb'
 
 class Oystercard
@@ -10,7 +10,7 @@ class Oystercard
 
   def initialize
       @balance = 0
-      @journey_history = JourneyHistory.new
+      @journey_history = JourneyLog.new
   end
 
   def top_up(amount)
