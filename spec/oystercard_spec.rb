@@ -5,7 +5,7 @@ describe Oystercard do
 subject(:card) {Oystercard.new }
 let (:station) {double :station, zone: 1}
 
-    it 'tells your balance is 0' do
+    it 'new card balance is 0' do
       expect(card.balance).to eq 0
     end
 
@@ -39,10 +39,6 @@ let (:station) {double :station, zone: 1}
       card.top_up(5)
       card.touch_in(station)
     end
-
-       it 'stores the entry station' do
-       expect(card.entry_station).to eq station
-       end
 
        it 'touches the card in' do
          expect(card).to be_in_journey
