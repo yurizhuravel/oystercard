@@ -1,4 +1,5 @@
 require 'journey_log'
+require 'journey'
 
 describe JourneyLog do
 

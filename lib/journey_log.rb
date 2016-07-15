@@ -1,3 +1,5 @@
+require 'journey'
+
 class JourneyLog
   attr_reader :journey_history, :current_journey
 
@@ -23,5 +25,3 @@ class JourneyLog
   # end
 
 end
-
-log = JourneyLog.new
